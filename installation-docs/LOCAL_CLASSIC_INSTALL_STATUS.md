@@ -1,71 +1,77 @@
-# Local AzerothCore Classic Installation Status
+# وضعیت نصب محلی AzerothCore Classic
 
-Date: 2026-05-27
+تاریخ: 2026-05-27
 
-## Completed
+## انجام‌شده
 
-- Configured CMake build in `C:/Build`.
-- Built AzerothCore with `RelWithDebInfo`.
-- Copied required runtime DLLs next to the server binaries:
-  - `libmysql.dll`
-  - `legacy.dll`
-  - `libcrypto-3-x64.dll`
-  - `libssl-3-x64.dll`
-- Created runtime config files from `.dist` files:
-  - `C:/Build/bin/RelWithDebInfo/configs/authserver.conf`
-  - `C:/Build/bin/RelWithDebInfo/configs/worldserver.conf`
-  - `C:/Build/bin/RelWithDebInfo/configs/dbimport.conf`
-- Downloaded and extracted official AC Data v19 enUS to:
-  - `C:/Build/bin/RelWithDebInfo/Data`
-- Set `DataDir` in `worldserver.conf` to:
-  - `C:/Build/bin/RelWithDebInfo/Data`
-- Created MySQL user/databases with AzerothCore defaults:
-  - user: `acore`
-  - password: `acore`
-  - databases: `acore_auth`, `acore_characters`, `acore_world`
-- Populated and updated databases with `dbimport.exe`.
-- Verified server startup:
-  - `authserver.exe` listened on port `3724`.
-  - `worldserver.exe` listened on port `8085`.
-  - `worldserver.exe` reached the `AC>` console prompt.
+* پیکربندی بیلد CMake در `C:/Build` انجام شد.
+* AzerothCore با حالت `RelWithDebInfo` بیلد شد.
+* فایل‌های DLL موردنیاز برای اجرا در کنار فایل‌های اجرایی سرور کپی شدند:
 
-## Run Server
+  * `libmysql.dll`
+  * `legacy.dll`
+  * `libcrypto-3-x64.dll`
+  * `libssl-3-x64.dll`
+* فایل‌های تنظیمات اجرایی از فایل‌های `.dist` ساخته شدند:
 
-Open one PowerShell window:
+  * `C:/Build/bin/RelWithDebInfo/configs/authserver.conf`
+  * `C:/Build/bin/RelWithDebInfo/configs/worldserver.conf`
+  * `C:/Build/bin/RelWithDebInfo/configs/dbimport.conf`
+* دیتای رسمی AC Data v19 enUS دانلود و استخراج شد در:
+
+  * `C:/Build/bin/RelWithDebInfo/Data`
+* مقدار `DataDir` در فایل `worldserver.conf` روی مسیر زیر تنظیم شد:
+
+  * `C:/Build/bin/RelWithDebInfo/Data`
+* کاربر و دیتابیس‌های MySQL با تنظیمات پیش‌فرض AzerothCore ساخته شدند:
+
+  * نام کاربری: `acore`
+  * رمز عبور: `acore`
+  * دیتابیس‌ها: `acore_auth`، `acore_characters`، `acore_world`
+* دیتابیس‌ها با استفاده از `dbimport.exe` مقداردهی و به‌روزرسانی شدند.
+* اجرای صحیح سرورها بررسی شد:
+
+  * `authserver.exe` روی پورت `3724` در حال گوش دادن بود.
+  * `worldserver.exe` روی پورت `8085` در حال گوش دادن بود.
+  * `worldserver.exe` به اعلان کنسول `AC>` رسید.
+
+## اجرای سرور
+
+یک پنجره PowerShell باز کنید:
 
 ```powershell
 cd C:/Build/bin/RelWithDebInfo
 ./authserver.exe
 ```
 
-Open a second PowerShell window:
+یک پنجره PowerShell دوم باز کنید:
 
 ```powershell
 cd C:/Build/bin/RelWithDebInfo
 ./worldserver.exe
 ```
 
-Create a test account in the `worldserver.exe` console:
+در کنسول `worldserver.exe` یک حساب آزمایشی بسازید:
 
 ```text
 account create USERNAME PASSWORD
 account set gmlevel USERNAME 3 -1
 ```
 
-## Client Requirement
+## نیازمندی کلاینت
 
-AzerothCore is only the server. A separate World of Warcraft 3.3.5a client is required to play.
+AzerothCore فقط سرور است. برای بازی، به یک کلاینت جداگانه‌ی World of Warcraft نسخه 3.3.5a نیاز دارید.
 
-After installing or extracting the client, find `Wow.exe` in the client folder and set the client realmlist file to:
+بعد از نصب یا استخراج کلاینت، فایل `Wow.exe` را در پوشه کلاینت پیدا کنید و فایل realmlist کلاینت را به شکل زیر تنظیم کنید:
 
 ```text
 set realmlist 127.0.0.1
 ```
 
-The realmlist file is commonly located in one of these paths inside the WoW client folder:
+فایل realmlist معمولاً در یکی از مسیرهای زیر داخل پوشه کلاینت WoW قرار دارد:
 
-- `Data/realmlist.wtf`
-- `Data/enUS/realmlist.wtf`
-- `Data/enGB/realmlist.wtf`
+* `Data/realmlist.wtf`
+* `Data/enUS/realmlist.wtf`
+* `Data/enGB/realmlist.wtf`
 
-Then run `Wow.exe` and log in with the account created in `worldserver.exe`.
+سپس `Wow.exe` را اجرا کرده و با حسابی که در `worldserver.exe` ساخته‌اید وارد بازی شوید.
