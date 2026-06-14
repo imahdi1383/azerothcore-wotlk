@@ -25,11 +25,49 @@
 #include "ScriptMgr.h"
 #include "SpellInfo.h"
 #include "SpellMgr.h"
+#include "StringFormat.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
 #include <cmath>
 
 #include "ItemPackets.h"
+
+namespace
+{
+std::string FormatTooltipMoney(uint32 money)
+{
+    uint32 gold = money / 10000;
+    money %= 10000;
+    uint32 silver = money / 100;
+    uint32 copper = money % 100;
+
+    std::string result;
+    if (gold)
+    {
+        result += Acore::StringFormat("{}g", gold);
+    }
+
+    if (silver)
+    {
+        if (!result.empty())
+        {
+            result += " ";
+        }
+        result += Acore::StringFormat("{}s", silver);
+    }
+
+    if (copper || result.empty())
+    {
+        if (!result.empty())
+        {
+            result += " ";
+        }
+        result += Acore::StringFormat("{}c", copper);
+    }
+
+    return result;
+}
+}
 
 void WorldSession::HandleSplitItemOpcode(WorldPackets::Item::SplitItem& packet)
 {
@@ -409,6 +447,17 @@ void WorldSession::HandleItemQuerySingleOpcode(WorldPacket& recvData)
                 ObjectMgr::GetLocaleString(il->Description, loc_idx, Description);
             }
         }
+
+        if (pProto->BuyPrice > 0)
+        {
+            if (!Description.empty())
+            {
+                Description += "\n";
+            }
+
+            Description += Acore::StringFormat("Buy Price: {}", FormatTooltipMoney(uint32(pProto->BuyPrice)));
+        }
+
         // guess size
         WorldPacket queryData(SMSG_ITEM_QUERY_SINGLE_RESPONSE, 600);
         queryData << pProto->ItemId;
