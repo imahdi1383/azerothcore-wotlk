@@ -57,7 +57,7 @@ CMAKE_INSTALL_PREFIX=C:/Program Files/AzerothCore
 
 ### خطایی که در این مرحله برخوردم و آن را رفع کردم
 
-![خطای Boost در CMake](installation-docs/screenshots/my-errors/cmake/04-cmake-configure-error.jpg)
+![خطای Boost در CMake](installation-docs/screenshots/my-errors/cmake/04-cmake-configure-error)
 
 - warning مربوط به policy CMP0167
 - پیدا شدن Boost 1.91.0
@@ -187,7 +187,7 @@ DataDir = "C:/Build/bin/RelWithDebInfo/Data"
 cd C:\Build\bin\RelWithDebInfo
 .\authserver.exe
 ```
-![اجرای authserver.exe](installation-docs/screenshots/runtime/01-install/authserver.jpg)
+![اجرای authserver.exe](installation-docs/screenshots/runtime/01-install/authserver)
 ---
 
 ### اجرای worldserver
@@ -205,12 +205,12 @@ WORLD: World Initialized In 0 Minutes 18 Seconds
 worldserver-daemon ready...
 AC>
 ```
-![alt text](installation-docs/screenshots/runtime/01-install/worldserver.jpg)
+![alt text](installation-docs/screenshots/runtime/01-install/worldserver)
 ---
 
 ### مرحله 13: ساخت حساب تستی
 
-![ساخت حساب برای بازیکن](<installation-docs/screenshots/runtime/01-install/create user account.jpg>)
+![ساخت حساب برای بازیکن](<installation-docs/screenshots/runtime/01-install/create user account>)
 ```text
 account create USERNAME PASSWORD
 account set gmlevel USERNAME 3 -1
@@ -376,9 +376,9 @@ Description += Acore::StringFormat(
 ## خروجی توی بازی:
 
 زیر آیتم ها قیمت خریدشونم هست توی دسکریپشن:
-![خروجی 1](installation-docs/screenshots/runtime/02-buy-price/01.jpg)
+![خروجی 1](installation-docs/screenshots/runtime/02-buy-price/01)
 
-![خروجی 2](installation-docs/screenshots/runtime/02-buy-price/02.jpg)
+![خروجی 2](installation-docs/screenshots/runtime/02-buy-price/02)
 
-![خروجی 3](installation-docs/screenshots/runtime/02-buy-price/03.jpg)
+![خروجی 3](installation-docs/screenshots/runtime/02-buy-price/03)
 ---
