@@ -1,5 +1,25 @@
 # Auto detect text files and perform LF normalization
-* text eol=lf
+* text=auto
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.bmp binary
+*.ico binary
+*.svg text eol=lf
+
+# Other binary files
+*.pdf binary
+*.zip binary
+*.7z binary
+*.rar binary
+*.exe binary
+*.dll binary
+*.mp3 binary
+*.mp4 binary
 
 # Whitespace rules
 # strict (no trailing, no tabs)
