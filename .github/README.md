@@ -1,93 +1,384 @@
-# ![logo](https://raw.githubusercontent.com/azerothcore/azerothcore.github.io/master/images/logo-github.png) AzerothCore
+# تسک اول: اجرای AzerothCore
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
-[![CodeFactor](https://www.codefactor.io/repository/github/azerothcore/azerothcore-wotlk/badge)](https://www.codefactor.io/repository/github/azerothcore/azerothcore-wotlk)
-[![StackOverflow](http://img.shields.io/badge/stackoverflow-azerothcore-blue.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/azerothcore?sort=newest "Ask / browse questions here")
-[![Discord](https://img.shields.io/discord/217589275766685707?logo=discord&logoColor=white)](https://discord.gg/gkt4y2x "Our community hub on Discord")
-[![Bounties on BountyHub](https://img.shields.io/badge/Bounties-on%20BountyHub-yellow)](https://www.bountyhub.dev/bounties?repo=azerothcore)
+## نصب و راه اندازی
+### مرحله 1: دریافت سورس پروژه
 
-## Build Status
+با git clone یک کپی از کدها بر روی سیستم خودم ایجاد کردم:
+```bash
+git clone https://github.com/azerothcore/azerothcore-wotlk.git
+```
 
-[![nopch-build](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/core-build-nopch.yml/badge.svg?branch=master)](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/core-build-nopch.yml?query=branch%3Amaster)
-[![pch-build](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/core-build-pch.yml/badge.svg?branch=master)](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/core-build-pch.yml?query=branch%3Amaster)
-[![core-modules-build](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/core_modules_build.yml/badge.svg?branch=master)](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/core_modules_build.yml?query=branch%3Amaster)
-[![windows-build](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/windows_build.yml/badge.svg?branch=master)](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/windows_build.yml?query=branch%3Amaster)
-[![macos-build](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/macos_build.yml/badge.svg?branch=master)](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/macos_build.yml?query=branch%3Amaster)
-[![docker-build](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/docker_build.yml/badge.svg?branch=master)](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/docker_build.yml?query=branch%3Amaster)
-[![tools-build](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/tools_build.yml/badge.svg?branch=master)](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/tools_build.yml?query=branch%3Amaster)
-[![dashboard-ci](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/dashboard-ci.yml/badge.svg?branch=master)](https://github.com/azerothcore/azerothcore-wotlk/actions/workflows/dashboard-ci.yml?query=branch%3Amaster)
+---
 
-## Introduction
+### مرحله 2: نصب پیش‌نیازها
+طبق داکیومنت اصلی AzerothCore پیش رفتم:
 
-AzerothCore is an open-source game server application and framework designed for hosting massively multiplayer online role-playing games (MMORPGs). It is based on the popular MMORPG World of Warcraft (WoW) and seeks to recreate the gameplay experience of the original game from patch 3.3.5a.
+```
+https://azerothcore.org/wiki/classic-installation
+```
 
-The original code is based on MaNGOS, TrinityCore, and SunwellCore and has since then had extensive development to improve stability, in-game mechanics, and modularity to the game. AC has also grown into a community-driven project with a significant number of contributors and developers. It is written in C++ and provides a solid foundation for creating private servers that mimic the mechanics and behavior of the official WoW servers.
+| نصب شده | ورژن |
+|---|---|
+| Git | `2.54.0` |
+| CMake |`4.3.2` |
+| Visual Studio |`18 2026` |
+| Boost |`1.91.0` |
+| MySQL |`8.4.9` |
+| OpenSSL | `3.6.2` |
 
-## Philosophy
 
-Our main goal is to create a playable game server, offering a fully working in-game experience.
+---
 
-Here are the main points we focus on:
+### مرحله 3: ساخت Build Directory
 
-* Stability
-  * We make sure all changes pass the CIs before being merged into the master branch.
+- پوشه کدها: `C:/Azerothcore`
+- پوشه بیلد:  `C:/Build`
 
-* Blizzlike content
-  * We strive to make all in-game content to be blizzlike. Therefore we have a high standard for fixes being made.
 
-* Customization
-  * It is easy to customize your experience using [modules](#modules).
+---
 
-* Community driven
-  * AzerothCore has an active community of developers, contributors, and users who collaborate, share knowledge, and provide support through forums, Discord channels, and other communication platforms. 
+### مرحله 4: CMake
 
-### Modules
+در محیط گرافیکی CMake:
+```text
+Source:    C:/Azerothcore
+Build:     C:/Build
+Generator: Visual Studio 18 2026
 
-AzerothCore is designed to be highly modular, allowing developers to extend and customize the game to suit their preferences or create unique gameplay experiences. This flexibility enables the addition of custom features, content, and modifications.
+APP_AUTHSERVER=default
+APP_WORLDSERVER=default
+TOOLS_BUILD=all
+MODULES=static
+SCRIPTS=static
+USE_MYSQL_SOURCES=OFF
+CMAKE_INSTALL_PREFIX=C:/Program Files/AzerothCore
+```
 
-We have a lot of modules already made by the community, many of which can be found in the [Module Catalogue](https://www.azerothcore.org/catalogue.html#/).
 
-## Installation
+### خطایی که در این مرحله برخوردم و آن را رفع کردم
 
-Detailed installation instructions are available [here](http://www.azerothcore.org/wiki/installation).
+![خطای Boost در CMake](installation-docs/screenshots/my-errors/cmake/04-cmake-configure-error.png)
 
-## Contributing
+- warning مربوط به policy CMP0167
+- پیدا شدن Boost 1.91.0
+- پیدا نشدن componentهای filesystem، program_options، iostreams و regex
 
-AzerothCore can also serve as a learning resource for aspiring developers who want to understand how WoW servers work, how MMORPGs are structured, how game server emulators are created, or to improve their C++ and SQL knowledge.
+متن اصلی خطا:
 
-If you want to contribute to the project, you will find a lot of resources that will guide you in our [wiki](https://www.azerothcore.org/wiki/contribute).
+```text
+Could NOT find Boost (missing: filesystem program_options iostreams regex)
+(found suitable version "1.91.0", minimum required is "1.78")
 
-We also recommend you read our [Contributor Covenant Code of Conduct](https://github.com/azerothcore/azerothcore-wotlk/blob/master/.github/CODE_OF_CONDUCT.md).
+Configuring incomplete, errors occurred!
+```
+که پس از جستجو در اینترنت فهمیدم:
+CMake نسخه‌ی Boost `1.91.0` را مناسب تشخیص داده، ولی componentهای زیر را پیدا نکرده است. با توجه به دستوراتی که با جستجو در اینترنت پیدا کردم، خطا را رفع کردم.
 
-Feel free to join our [Discord server](https://discord.gg/gkt4y2x).
+```text
+filesystem
+program_options
+iostreams
+regex
+```
 
-Click on the "⭐ Star" button to help us gain more visibility on Github!
 
-## Authors & Contributors
+---
 
-The project was born in 2016 based on SunwellCore. Unfortunately, SunwellCore was published without any git history, so on git there are no credits for all the contributors before 2016.
+### مرحله 5: Build کردن پروژه
+طبق مستندات رسمی AzerothCore دستور زیر را در پاورشل ویندوز اجرا کردم:
+```powershell
+cmake --build "C:\Build" --config RelWithDebInfo --parallel 1
+```
 
-You can check the [authors](https://github.com/azerothcore/azerothcore-wotlk/blob/master/AUTHORS) file for more details.
+---
 
-## Important Links
+### مرحله 6: آماده‌سازی DLLها و فایل‌های config
 
-- [Doxygen documentation](https://www.azerothcore.org/pages/doxygen/index.html)
-- [Website](http://www.azerothcore.org/)
-- [AzerothCore catalogue](http://www.azerothcore.org/catalogue.html  "Modules, tools, and other stuff for AzerothCore") (modules, tools, etc...)
-- [Our Discord server](https://discord.gg/gkt4y2x)
-- [Our wiki](http://www.azerothcore.org/wiki "Easy to use and developed by AzerothCore founder")
-- [Our forum](https://github.com/azerothcore/azerothcore-wotlk/discussions/)
-- [Our Facebook page](https://www.facebook.com/AzerothCore/)
-- [Our LinkedIn page](https://www.linkedin.com/company/azerothcore/)
+در این پروژه :
 
-## License
 
-- The AzerothCore source code is released under the [GNU GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+| نصب شده | ورژن |
+|---|---|
+| آدرس host | `127.0.0.1` |
+| پورت MySQL | `3306` |
+| نام کاربری | `acore` |
+| رمز عبور | `acore` |
 
-It's important to note that AzerothCore is not an official Blizzard Entertainment product, and it is not affiliated with or endorsed by World of Warcraft or Blizzard Entertainment. AzerothCore does not in any case sponsor nor support illegal public servers. If you use this project to run an illegal public server and not for testing and learning it is your own personal choice.
+---
+در مسیر `C:/Build/bin/RelWithDebInfo/configs/` فایل های زیر رو تغییر دادم:
 
-## Special thanks
+- `authserver.conf`:
 
-[JetBrains](https://www.jetbrains.com/?from=AzerothCore) is providing free [open-source licenses](https://www.jetbrains.com/community/opensource/) to the AzerothCore developers.
+    ```ini
+    RealmServerPort = 3724
+    BindIP = "0.0.0.0"
+    LoginDatabaseInfo = "127.0.0.1;3306;acore;acore;acore_auth"
+    ```
 
-[![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
+- `worldserver.conf`:
+
+    ```ini
+    WorldServerPort = 8085
+    BindIP = "0.0.0.0"
+    LoginDatabaseInfo     = "127.0.0.1;3306;acore;acore;acore_auth"
+    WorldDatabaseInfo     = "127.0.0.1;3306;acore;acore;acore_world"
+    CharacterDatabaseInfo = "127.0.0.1;3306;acore;acore;acore_characters"
+    ```
+
+- `dbimport.conf`:
+
+    ```ini
+    LoginDatabaseInfo     = "127.0.0.1;3306;acore;acore;acore_auth"
+    WorldDatabaseInfo     = "127.0.0.1;3306;acore;acore;acore_world"
+    CharacterDatabaseInfo = "127.0.0.1;3306;acore;acore;acore_characters"
+    Updates.EnableDatabases = 7
+    Updates.AllowedModules = "all"
+    Updates.AutoSetup = 1
+    ```
+
+---
+
+### مرحله 7: راه‌اندازی MySQL
+در پاورشل ویندوز اجرا کردم: (با دسترسی Administrator)
+```powershell
+Start-Service MySQL84
+Get-Service MySQL84
+```
+
+خروجی که گرفتم:
+```text
+Status   Name      DisplayName
+------   ----      -----------
+Running  MySQL84   MySQL84
+```
+
+---
+
+### مرحله 9: Import دیتابیس‌ها
+فایل `C:\Build\bin\RelWithDebInfo\dbimport.exe` را اجرا کردم. پیام موفق داد:
+
+```text
+Applied 181 queries. Containing 1090 new and 1384 archived updates.
+```
+
+---
+
+### مرحله 10: دانلود و تنظیم Data
+
+AC Data v19 برای `enUS` در مسیر زیر استخراج شده:
+
+```text
+C:/Build/bin/RelWithDebInfo/Data
+```
+در `worldserver.conf`:
+
+```ini
+DataDir = "C:/Build/bin/RelWithDebInfo/Data"
+```
+نصب تموم شد
+
+---
+
+## اجرای azeroth core
+
+### اجرای authserver
+ در پاور شل به پوشه زیر رفتم و فایل `.exe` رو اجرا کردم.
+```powershell
+cd C:\Build\bin\RelWithDebInfo
+.\authserver.exe
+```
+![اجرای authserver.exe](installation-docs/screenshots/runtime/01-install/authserver.png)
+---
+
+### اجرای worldserver
+
+در یک PowerShell جدا:
+
+```powershell
+cd C:\Build\bin\RelWithDebInfo
+.\worldserver.exe
+```
+طبق داکیومنت، چون به `AC>` رسیدم یعنی همه چی درست اجرا شده:
+
+```text
+WORLD: World Initialized In 0 Minutes 18 Seconds
+worldserver-daemon ready...
+AC>
+```
+![alt text](installation-docs/screenshots/runtime/01-install/worldserver.png)
+---
+
+### مرحله 13: ساخت حساب تستی
+
+![ساخت حساب برای بازیکن](<installation-docs/screenshots/runtime/01-install/create user account.png>)
+```text
+account create USERNAME PASSWORD
+account set gmlevel USERNAME 3 -1
+```
+اجرای سرور تمومه. حالا بریم با این اطلاعات از محیط بازی به سرور وصل شیم.
+
+---
+
+## اتصال کلاینت به سرور بازی
+
+بازی World of Warcraft دقیقا نسخه `3.3.5a` را دانلود کردم. فایل های بازی رو  در `C:\Games\World of Warcraft - WoTLK\wotlk\` اکسترکت کردم. 
+
+### تنظیم realmlist.wtf
+فایل `C:\Games\World of Warcraft - WoTLK\wotlk\Data\enUS\realmlist.wtf` رو تغییر دادم:
+```text
+set realmlist 127.0.0.1
+```
+
+---
+
+### مرحله 15: اجرای کلاینت و اتصال موفق
+
+فایل `C:\Games\World of Warcraft - WoTLK\wotlk\Wow.exe` را برای اجرای بازی اجرا کردم.
+
+
+
+
+---
+---
+---
+---
+---
+
+
+# تسک دوم: نمایش قیمت داخل Tooltip آیتم
+
+## قیمت آیتم از کجا میاد؟
+
+جدول `item_template` توی دیتابیس world دو تا ستون اینجوری داره:
+
+```sql
+`BuyPrice` bigint NOT NULL DEFAULT '0',
+`SellPrice` int unsigned NOT NULL DEFAULT '0',
+```
+
+که توی فایل زیر از کدها هست:
+```text
+data/sql/base/db_world/item_template.sql
+```
+
+معنای این دو فیلد:
+
+| فیلد | کاربرد |
+|---|---|
+| `BuyPrice` | قیمت خرید آیتم |
+| `SellPrice` | قیمت فروش آیتم |
+
+واحد های پولی بازی: 
+
+```text
+100 copper = 1 silver
+100 silver = 1 gold
+10000 copper = 1 gold
+```
+یعنی باید برسیم به همچین چیزی:
+```text
+20      : 20c
+129     : 1s 29c
+10000   : 1g
+10510   : 1g 5s 10c
+```
+
+
+### ارتباط دیتابیس و Tooltip
+
+مسیر داده در سورس موجود به شکل زیر است:
+
+1. در دیتابیس `acore_world` جدولی با اسم `item-template` وجود داره 
+2. که فایل `ObjectMgr.cpp` اون رو فراخوانی میکنه. و با SQL مقادیر زیر رو SELECT میکنه: BuyCount, BuyPrice, SellPrice و موارد دیگه.
+3. حالا به یه `ItemTemplate` برای BuyPrice و SellPrice نیاز داریم. توی فایل `ItemHandler.cpp`
+4. حالا این فایل اطلاعات رو به `WoW Client Tooltip` ارسال میکنه. تا توی بازی نمایش داده بشه.
+
+---
+
+### پس باید `ItemHandler.cpp` رو تغییر بدیم:
+ 
+```
+src/server/game/Handlers/ItemHandler.cpp
+```
+این تابع اطلاعات یک آیتم بازی رو درخواست میده و سپس برای نشون دادن توی بازی آماده میکنه:
+```cpp
+WorldSession::HandleItemQuerySingleOpcode
+```
+---
+### کد هایی که اضافه کردم:
+
+```cpp
+std::string FormatTooltipMoney(uint32 money)
+```
+یه تابع نوشتیم. که یه ورودی عددی ساده میگیره و باید تبدیلش کنه به فرمت قابل خوندن: `1g 5s 10c`
+
+مثلا:
+- اگه عدد 10510 رو به 10000 تقسیم کنیم 1 بدست میاد. پس میشه یه دونه طلا .
+- حالا 510 باقی مانده رو برای نقره و کوپر نگه میداریم.
+```cpp
+uint32 gold = money / 10000;
+money %= 10000;
+```
+- حالا 510 رو به 100 تقسیم میکنیم و 5 تا نقره بدست میاد.
+- باقی مانده هم 10 هست که تعداد کوپر ها هست.
+```cpp
+uint32 silver = money / 100;
+uint32 copper = money % 100;
+```
+1. حالا بررسی میکنیم که اگه gold داشتیم و صفر نبود، متنی مثل `1g` به خروجی اضافه بشه.
+```cpp
+if (gold)
+{
+    result += Acore::StringFormat("{}g", gold);
+}
+```
+2. برای نقره بررسی میکنیم که اگه متن `1g` اضافه شده بود و طلا داشتیم، یه فاصله اضافه کنه که به هم نچسبن و اینجوری نشه: `1g5s10c`.
+```cpp
+if (silver)
+{
+    if (!result.empty())
+    {
+        result += " ";
+    }
+    result += Acore::StringFormat("{}s", silver);
+}
+```
+3. برای کوپر هم همینجوری پیش میریم. فقط برای مقدار صفر خروجی رو خالی تحویل نمیده و `0c` رو میده.
+
+```cpp
+if (copper || result.empty())
+{
+    if (!result.empty())
+    {
+        result += " ";
+    }
+    result += Acore::StringFormat("{}c", copper);
+}
+```
+حالا برای نمایش: اگه قیمت خرید 0 یا منفی نبود:
+```cpp
+if (pProto->BuyPrice > 0)
+```
+بررسی میکنه اگه توضیحات دیگه ای وجود داشت به خط بعدی میره با `\n` و متن قبلی رو خراب نمیکنه
+```cpp
+if (!Description.empty())
+{
+    Description += "\n";
+}
+```
+حالا قیمت خرید رو توی توضیحات آیتم نمایش میدیم:
+```cpp
+Description += Acore::StringFormat(
+    "Buy Price: {}",
+    FormatTooltipMoney(uint32(pProto->BuyPrice)));
+```
+---
+## خروجی توی بازی:
+
+زیر آیتم ها قیمت خریدشونم هست توی دسکریپشن:
+![خروجی 1](installation-docs/screenshots/runtime/02-buy-price/01.jpg)
+
+![خروجی 2](installation-docs/screenshots/runtime/02-buy-price/02.jpg)
+
+![خروجی 3](installation-docs/screenshots/runtime/02-buy-price/03.jpg)
+---
